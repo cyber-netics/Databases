@@ -1,0 +1,38 @@
+version: "2.2"
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongodb:latest
+    restart: always
+    command: --auth
+    build:
+      dockerfile: Dockerfile
+      context: ./src/mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodbdata:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - proxy
+
+  backend:
+    container_name: backend
+    image: backend:latest
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./src/backend
+    depends_on:
+      - mongodb
+    networks:
+      - proxy
+
+volumes:
+  mongodbdata:
+
+networks:
+  proxy:
+    driver: bridge
