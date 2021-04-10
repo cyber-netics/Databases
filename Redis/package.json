@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "clean": "docker volume prune && docker images prune && docker container prune",
+    "prune": "npm run clean:images && docker volume prune",
+    "clean:images": "docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q)"
+  }
+}

@@ -1,0 +1,1 @@
+exec honcho start -f Procfile

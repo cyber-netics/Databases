@@ -1,0 +1,10 @@
+version: "3.2"
+services:
+  redis_server:
+    image: myredis:latest
+    ports:
+      - "6379:6379"
+    build:
+      dockerfile: Dockerfile
+      context: ./src/redis
+
